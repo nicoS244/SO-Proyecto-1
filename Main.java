@@ -26,7 +26,7 @@ public class Main {
             System.out.print("Nombre: "); String nombre = sc.next().trim();
             int sizeKB = leerEnteroPositivo(sc, "Tamaño (KB): ");
             int cpuTotal = leerEnteroPositivo(sc, "Tiempo de CPU total (ms): ");
-            int llegada = leerEnteroNoNegativo(sc, "Tiempo de llegada (ms): ");
+            int llegada = leerEnteroPositivo(sc, "Tiempo de llegada (ms): ");
 
             Proceso p = new Proceso(id, nombre, sizeKB, cpuTotal, llegada);
             todos.add(p);
@@ -139,15 +139,6 @@ public class Main {
     private static int leerEnteroPositivo(Scanner sc, String prompt) {
         int x = -1;
         while (x <= 0) {
-            System.out.print(prompt);
-            while (!sc.hasNextInt()) { sc.next(); System.out.print(prompt); }
-            x = sc.nextInt();
-        }
-        return x;
-    }
-    private static int leerEnteroNoNegativo(Scanner sc, String prompt) {
-        int x = -1;
-        while (x < 0) {
             System.out.print(prompt);
             while (!sc.hasNextInt()) { sc.next(); System.out.print(prompt); }
             x = sc.nextInt();
