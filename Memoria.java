@@ -1,6 +1,3 @@
-// Memoria.java
-// Modelo simple de memoria: sin particiones, solo cupo total/libre.
-
 public class Memoria {
     private final int totalKB;
     private int libreKB;

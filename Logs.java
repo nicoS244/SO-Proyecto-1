@@ -1,13 +1,8 @@
-// Logs.java
-// Utilidades de logging con colores ANSI y saltos de línea entre acciones.
-// Si tu consola no soporta ANSI, pon ENABLE_COLOR=false.
-
 public final class Logs {
     private Logs() {}
 
-    // === Configuración ===
     public static boolean ENABLE_COLOR = true;
-    public static boolean SPACER_AFTER_EACH_LINE = true; // salto de línea extra
+    public static boolean SPACER_AFTER_EACH_LINE = true;
 
     // === ANSI ===
     private static final String R  = "\u001B[0m";   // reset
@@ -33,7 +28,6 @@ public final class Logs {
         if (SPACER_AFTER_EACH_LINE) System.out.println(); // salto extra
     }
 
-    // === Encabezados / eventos genéricos ===
     public static void heading(String text) {
         out(c(B + C1, text));
     }
@@ -42,8 +36,6 @@ public final class Logs {
         out(c(C1, s));
     }
 
-    // === Colas ===
-    // Muestra el título + contenido. Úsalo para "Procesos Listos" y "Listos para Ejecución"
     public static void cola(String titulo, ColaEnlazada<Proceso> cola) {
         StringBuilder sb = new StringBuilder();
         sb.append(c(B1, titulo)).append(" = ").append(c(B1, "["));
@@ -57,7 +49,6 @@ public final class Logs {
         out(sb.toString());
     }
 
-    // === CPU ===
     public static void cpuTick(int t, Proceso p, int restanteAntes, int ejecutadoHastaAhora) {
         int restanteAhora = restanteAntes - ejecutadoHastaAhora;
         out(c(W1, String.format("t=%d: CPU %-6s -> restante=%dms", t, p.getId(), restanteAhora)));
@@ -72,7 +63,6 @@ public final class Logs {
         out(c(G1 + B, String.format("t=%d: TERMINA %s", t, p.getId())));
     }
 
-    // === Memoria ===
     public static void memCarga(int t, Proceso p, int memLibreDespuesKB) {
         out(c(Y1 + B, String.format("t=%d: CARGA %s (size=%dKB) -> memLibre=%dKB",
                 t, p.getId(), p.getSizeKB(), memLibreDespuesKB)));

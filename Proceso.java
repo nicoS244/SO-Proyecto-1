@@ -1,7 +1,3 @@
-// Proceso.java
-// Representa un proceso para el simulador RR con gestión de memoria simple
-// Incluye: datos de captura, estado de ejecución, y métricas (respuesta, turnaround, espera)
-
 public class Proceso {
 
     private final String id;
@@ -34,15 +30,6 @@ public class Proceso {
         if (llegadaMs < 0) throw new IllegalArgumentException("llegadaMs debe ser >= 0");
     }
 
-    // ====== Operación principal de CPU ======
-    /**
-     * Ejecuta el proceso por min(quantumMs, cpuRestanteMs).
-     * - Si es la primera vez que entra a CPU, fija tPrimeraRespuestaMs = relojMsActual.
-     * - Si se agota la ráfaga, fija tFinalizacionMs = relojMsActual + ejecutado.
-     * @param quantumMs      cantidad máxima a ejecutar (ms) (debe ser > 0)
-     * @param relojMsActual  tiempo actual (ms) cuando inicia esta ejecución
-     * @return               cuánto se ejecutó efectivamente (ms)
-     */
     public int ejecutarPor(int quantumMs, int relojMsActual) {
         if (quantumMs <= 0) throw new IllegalArgumentException("quantumMs debe ser > 0");
         if (relojMsActual < 0) throw new IllegalArgumentException("relojMsActual debe ser >= 0");
@@ -58,31 +45,26 @@ public class Proceso {
         return ejecutado;
     }
 
-    // ====== Estado y métricas ======
     public boolean terminado() {
         return cpuRestanteMs == 0;
     }
 
-    /** Tiempo de respuesta = (primer despacho) - (llegada). Retorna -1 si aún no ha respondido. */
     public int tiempoRespuesta() {
         if (tPrimeraRespuestaMs == null) return -1;
         return tPrimeraRespuestaMs - llegadaMs;
     }
 
-    /** Tiempo de ejecución / turnaround = (finalización) - (llegada). Retorna -1 si no ha terminado. */
     public int tiempoEjecucion() {
         if (tFinalizacionMs == null) return -1;
         return tFinalizacionMs - llegadaMs;
     }
 
-    /** Tiempo de espera = turnaround - CPU total. Retorna -1 si no ha terminado. */
     public int tiempoEspera() {
         int te = tiempoEjecucion();
         if (te < 0) return -1;
         return te - cpuTotalMs;
     }
 
-    // ====== Getters ======
     public String getId() { return id; }
     public String getNombre() { return nombre; }
     public int getSizeKB() { return sizeKB; }
