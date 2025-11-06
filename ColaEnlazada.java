@@ -1,6 +1,5 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.function.Function;
 
 public class ColaEnlazada<T> implements Iterable<T> {
     private static final class Nodo<E> {

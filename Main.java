@@ -138,7 +138,7 @@ public class Main {
 
     private static int leerEnteroPositivo(Scanner sc, String prompt) {
         int x = -1;
-        while (x <= 0) {
+        while (x < 0) {
             System.out.print(prompt);
             while (!sc.hasNextInt()) { sc.next(); System.out.print(prompt); }
             x = sc.nextInt();
